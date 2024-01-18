@@ -31,7 +31,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
-          run: echo " login successfull "
+          #run: echo " login successfull "
 
       #- name: Login to Amazon ECR
       #  run: 
@@ -43,7 +43,7 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
         with:
           registry-type: public
-          run: echo " trying to login to ecr"
+          #run: echo " trying to login to ecr"
 
       - name: Build and push Docker image to ECR
         run: 
