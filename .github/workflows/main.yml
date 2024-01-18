@@ -40,11 +40,6 @@ jobs:
           secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           region: ${{ secrets.AWS_REGION }}
 
-      - name: Login to Amazon ECR
-        id: ecr
-        run: |
-            echo "::set-output name=account::6643-3474-9222"
-
       - name: Use ECR Account in Next Step
         run: |
             echo "ECR Account: ${{ steps.ecr.outputs.account }}"
@@ -52,7 +47,9 @@ jobs:
       - name: Push to ECR
         run: |
           docker tag yogi7760/test_docker ${{ steps.ecr.outputs.account }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/yogi7760/test_docker:latest
-          docker push ${{ steps.ecr.outputs.account }}.dkr.ecr. ${{ secrets.AWS_REGION }}.amazonaws.com/docker_ecr/test_docker:latest
+          #docker push ${{ steps.ecr.outputs.account }}.dkr.ecr. ${{ secrets.AWS_REGION }}.amazonaws.com/docker_ecr/test_docker:latest
+          docker push 664334749222.dkr.ecr. ${{ secrets.AWS_REGION }}.amazonaws.com/docker_ecr/test_docker:latest
+
 
           #docker push aws_account_id.dkr.ecr.us-west-2.amazonaws.com/my-repository:tag
 
