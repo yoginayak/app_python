@@ -33,7 +33,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
           #run: echo " login successfull "
 
-      #- name: Login to Amazon ECR
+      #- name: Login to Amazon ECRe
       #  run: 
        #   aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.ECR_REPO_URI }}
 
