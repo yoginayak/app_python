@@ -48,7 +48,7 @@ jobs:
         run: |
           docker tag yogi7760/test_docker ${{ steps.ecr.outputs.account }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/yogi7760/test_docker:latest
           #docker push ${{ steps.ecr.outputs.account }}.dkr.ecr. ${{ secrets.AWS_REGION }}.amazonaws.com/docker_ecr/test_docker:latest
-          docker push 664334749222.dkr.ecr. ${{ secrets.AWS_REGION }}.amazonaws.com/docker_ecr/test_docker:latest
+          docker push 664334749222.dkr.ecr. ${{ secrets.AWS_REGION }}.amazonaws.com/docker_ecr:latest
 
 
           #docker push aws_account_id.dkr.ecr.us-west-2.amazonaws.com/my-repository:tag
