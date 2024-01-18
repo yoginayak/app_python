@@ -39,6 +39,11 @@ jobs:
           access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           region: ${{ secrets.AWS_REGION }}
+
+      - name: Use ECR Account in Next Step
+        run: |
+            echo "ECR Account: ${{ steps.ecr.outputs.account }}"
+            
       - name: Push to ECR
         run: |
           docker tag test_docker ${{ steps.ecr.outputs.account }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/test_docker:latest
