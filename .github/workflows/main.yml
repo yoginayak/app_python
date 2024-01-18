@@ -22,7 +22,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: yogi7760/test_docker:latest
+          tags: yogi7760/test_docker:latest1
           
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
