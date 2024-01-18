@@ -41,8 +41,8 @@ jobs:
           region: ${{ secrets.AWS_REGION }}
       - name: Push to ECR
         run: |
-          docker tag my-image ${{ steps.ecr.outputs.account }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/my-image:v1
-          docker push ${{ steps.ecr.outputs.account }}.dkr.ecr. ${{ secrets.AWS_REGION }}.amazonaws.com/my-image:v1
+          docker tag test_docker ${{ steps.ecr.outputs.account }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/test_docker:latest
+          docker push ${{ steps.ecr.outputs.account }}.dkr.ecr. ${{ secrets.AWS_REGION }}.amazonaws.com/test_docker:latest
 
       
 
