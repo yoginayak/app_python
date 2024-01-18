@@ -31,3 +31,21 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
           #run: echo " login successfull "
+
+      - name: Login to ECR
+        id: ecr
+        uses: jwalton/gh-ecr-login@v1
+        with:
+          access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          region: ${{ secrets.AWS_REGION }}
+      - name: Push to ECR
+        run: |
+          docker tag my-image ${{ steps.ecr.outputs.account }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/my-image:v1
+          docker push ${{ steps.ecr.outputs.account }}.dkr.ecr. ${{ secrets.AWS_REGION }}.amazonaws.com/my-image:v1
+
+      
+
+      
+
+      
