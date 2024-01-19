@@ -50,14 +50,23 @@ jobs:
         with: 
           images: yogi7760/test_docker
 
-      - name: Build and push Docker image to Docker Hub
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          file: ./Dockerfile
-          push: true
-          tags: ${{ steps.meta.ouputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+      - name: Build and Push Docker Image
+        run: |
+          docker build -t ${{ secrets.AWS_REGISTRY_URL }}/docker_ecr:latest .
+          docker push ${{ secrets.AWS_REGISTRY_URL }}/docker_ecr:latest
+        env:
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }} 
+          AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+          AWS_REGISTRY_URL: ${{ secrets.AWS_REGISTRY_URL }}
+
+      # - name: Build and push Docker image to ecr
+      #   uses: docker/build-push-action@v4
+      #   with:
+      #     context: .
+      #     file: ./Dockerfile
+      #     push: true
+      #     tags: ${{ steps.meta.ouputs.tags }}
+      #     labels: ${{ steps.meta.outputs.labels }}
 
             
             
