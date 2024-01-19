@@ -44,3 +44,9 @@ jobs:
           docker build -t test:latest .
         env:
           DOCKER_CLI: docker
+
+      - name: push to ecr
+        run: |
+          docker push ${{ secrets.AWS_REGISTRY_URL }}/docker_ecr:latest
+          
+          
