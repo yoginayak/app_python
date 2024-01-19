@@ -11,26 +11,12 @@ jobs:
       - name: check out the repo
         uses: actions/checkout@v3
         
-      # - name: login to docker hub
-      #   uses: docker/login-action@v2
-      #   with:
-      #     username: ${{ secrets.DOCKER_USERNAME }}
-      #     password: ${{ secrets.DOCKER_PASSWORD }}
-
-      # - name: Build and push Docker image
-      #   uses: docker/build-push-action@v4
-      #   with:
-      #     context: .
-      #     push: true
-      #     tags: yogi7760/test_docker:latest
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
-          #run: echo " login successfull "
 
       - name: Login to ECR
         id: ecr
@@ -40,54 +26,12 @@ jobs:
           secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           region: ${{ secrets.AWS_REGION }}
 
-      - name: Use ECR Account in Next Step
-        run: |
-            echo "ECR Account: ${{ steps.ecr.outputs.account }}"
+       
 
-      # - name: Get Metadata (tags,labels) for Docker images
-      #   id: meta
-      #   uses: docker/metadata-action@v4
-      #   with: 
-      #     images: yogi7760/test_docker
 
-      - name: Build and Push Docker Image
-        run: |
-          docker buildx build --platform linux/amd64 -t ${{ secrets.AWS_REGISTRY_URL }}/docker_ecr:latest .
-          docker push ${{ secrets.AWS_REGISTRY_URL }}/docker_ecr:latest
-        env:
-          AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }} 
-          AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
-          AWS_REGISTRY_URL: ${{ secrets.AWS_REGISTRY_URL }}
-
-      # - name: Build and push Docker image to ecr
-      #   uses: docker/build-push-action@v4
-      #   with:
-      #     context: .
-      #     file: ./Dockerfile
-      #     push: true
-      #     tags: ${{ steps.meta.ouputs.tags }}
-      #     labels: ${{ steps.meta.outputs.labels }}
-
+             
             
-            
-      # - name: Push to ECR
-      #   #run: |
-      #     #docker tag yogi7760/test_docker ${{ steps.ecr.outputs.account }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/yogi7760/test_docker:latest
-      #     #docker push ${{ steps.ecr.outputs.account }}.dkr.ecr. ${{ secrets.AWS_REGION }}.amazonaws.com/docker_ecr/test_docker:latest
-      #    # docker push 664334749222.dkr.ecr. ${{ secrets.AWS_REGION }}.amazonaws.com/docker_ecr:latest
-      #   id: docket_build
-      #   uses: docker/build-push-action@v4
-      #   with:
-      #       context: .
-      #       file: ./Dockerfile
-      #       push: true
-      #       tag: latest
-         
-
-
-          #docker push aws_account_id.dkr.ecr.us-west-2.amazonaws.com/my-repository:tag
-
-      
+    
 
       
 
