@@ -47,6 +47,7 @@ jobs:
 
       - name: push to ecr
         run: |
-          docker push ${{ secrets.AWS_REGISTRY_URL }}/docker_ecr:latest
+          docker tag test:latest public.ecr.aws/t7j7w2i0/docker_ecr:test
+          docker push public.ecr.aws/t7j7w2i0/docker_ecr:latest
           
           
