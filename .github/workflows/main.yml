@@ -43,19 +43,36 @@ jobs:
       - name: Use ECR Account in Next Step
         run: |
             echo "ECR Account: ${{ steps.ecr.outputs.account }}"
-            
-      - name: Push to ECR
-        #run: |
-          #docker tag yogi7760/test_docker ${{ steps.ecr.outputs.account }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/yogi7760/test_docker:latest
-          #docker push ${{ steps.ecr.outputs.account }}.dkr.ecr. ${{ secrets.AWS_REGION }}.amazonaws.com/docker_ecr/test_docker:latest
-         # docker push 664334749222.dkr.ecr. ${{ secrets.AWS_REGION }}.amazonaws.com/docker_ecr:latest
-        id: docket_build
+
+      - name: Get Metadata (tags,labels) for Docker images
+        id: meta
+        uses: docker/metadata-action@v4
+        with: 
+          images: yogi7760/test_docker
+
+      - name: Build and push Docker image to Docker Hub
         uses: docker/build-push-action@v4
         with:
-            context: .
-            file: ./Dockerfile
-            push: true
-            tag: latest
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ steps.meta.ouputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+            
+            
+      # - name: Push to ECR
+      #   #run: |
+      #     #docker tag yogi7760/test_docker ${{ steps.ecr.outputs.account }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/yogi7760/test_docker:latest
+      #     #docker push ${{ steps.ecr.outputs.account }}.dkr.ecr. ${{ secrets.AWS_REGION }}.amazonaws.com/docker_ecr/test_docker:latest
+      #    # docker push 664334749222.dkr.ecr. ${{ secrets.AWS_REGION }}.amazonaws.com/docker_ecr:latest
+      #   id: docket_build
+      #   uses: docker/build-push-action@v4
+      #   with:
+      #       context: .
+      #       file: ./Dockerfile
+      #       push: true
+      #       tag: latest
          
 
 
