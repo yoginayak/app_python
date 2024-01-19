@@ -33,5 +33,14 @@ jobs:
       #   with:
       #     context: .
       #     file: ./Dockerfile
-      #     push: trued
+      #     push: true
       #     tags: pushimage
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build Docker Image
+        run: |
+          docker build -t test:latest .
+        env:
+          DOCKER_CLI: docker
