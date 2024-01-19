@@ -18,6 +18,15 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
+
+      - name: Build Docker image and push it to ECR
+        id: docker_build
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: "${{ steps.set_docker_image_tag.outputs.IMAGE_TAG }}"
       - name: Login to ECR
         id: ecr
         uses: jwalton/gh-ecr-login@v1
