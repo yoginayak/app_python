@@ -52,8 +52,8 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          docker build -t ${{ secrets.AWS_REGISTRY_URL }}: latest .
-          docker push ${{ secrets.AWS_REGISTRY_URL }}: latest
+          docker buildx build --platform linux/amd64 -t ${{ secrets.AWS_REGISTRY_URL }}/docker_ecr:latest .
+          docker push ${{ secrets.AWS_REGISTRY_URL }}/docker_ecr:latest
         env:
           AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }} 
           AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
