@@ -62,5 +62,27 @@ jobs:
         run: |
           docker tag test:latest public.ecr.aws/t7j7w2i0/docker_ecr:test
           docker push public.ecr.aws/t7j7w2i0/docker_ecr:test
-          
+
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v1
+        with:
+          version: 'latest'
+          id: install 
+
+      - name: Pull Docker Image from ECR
+        run: |
+          docker pull ${AWS_ACCOUNT_ID}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/docker_ecr:test
+
+      - name: Configure kubectl for EKS
+        run: |
+          aws eks --region us-east-1 update-kubeconfig --name your-eks-cluster-name
+
+      
+      - name: Tag Docker Image for EKS
+        run: |
+          docker tag ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/your-repo-name:latest your-eks-cluster-name/your-repo-name:latest
+
+      - name: Push Docker Image to EKS
+        run: |
+          kubectl apply -f path/to/kubernetes-deployment.yaml  # Replace with the path to your Kubernetes deployment file
           
