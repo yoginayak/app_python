@@ -27,7 +27,7 @@ jobs:
           region: ${{ secrets.AWS_REGION }}
 
 
-      # - name: Build Docker image and push it to ECR
+      # - name: Build Docker image and push it to ECR1
       #   id: docker_build
       #   uses: docker/build-push-action@v4
       #   with:
