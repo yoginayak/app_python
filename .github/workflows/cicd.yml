@@ -22,7 +22,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: yogi7760/test:latest 
+          tags: yogi7760/demo:latest 
         
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
@@ -54,14 +54,14 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          docker build -t test:latest .
+          docker build -t demo:latest .
         env:
           DOCKER_CLI: docker
 
       - name: push to ecr
         run: |
-          docker tag test:latest public.ecr.aws/t7j7w2i0/docker_ecr:test
-          docker push public.ecr.aws/t7j7w2i0/docker_ecr:test
+          docker tag demo:latest public.ecr.aws/t7j7w2i0/docker_ecr:demo
+          docker push public.ecr.aws/t7j7w2i0/docker_ecr:demo
 
       # - name: Set up kubectl
       #   uses: azure/setup-kubectl@v1
