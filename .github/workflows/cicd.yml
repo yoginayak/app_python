@@ -66,7 +66,7 @@ jobs:
       # - name: Set up kubectl
       #   uses: azure/setup-kubectl@v1
       #   with:
-      #     version: 'latest'
+      #     version: 'latest 1'
       #     id: install 
 
       # - name: Pull Docker Image from ECR
